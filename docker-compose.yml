@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  owncloud: 
+    image: owncloud:latest
+    restart: always
+    ports:
+      - 8080:80
+      - 443:443
+    networks:
+      - happybird
+    volumes:
+      - ./data:/var/www/html
+
+  mysql:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: happybird
+    networks:
+      - happybird
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+networks:
+  happybird:
