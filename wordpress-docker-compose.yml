@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8090:80
+    environment:
+      WORDPRESS_DB_PASSWORD: betty
+      WORDPRESS_DB_USER: root 
+    networks: 
+      - wordpressmysql
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: betty
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks: 
+      - wordpressmysql
+
+networks: 
+  wordpressmysql:
